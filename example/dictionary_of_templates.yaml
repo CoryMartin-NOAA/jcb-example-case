@@ -1,0 +1,44 @@
+algorithm: simple_example
+algorithm_path: ./templates
+
+# Values consumed by jcb-base.yaml.j2
+PARMglobal: /opt/parm/global
+WINDOW_BEGIN: "2026-03-05T00:00:00Z"
+WINDOW_LENGTH: PT6H
+NUMBER_OUTER_LOOPS: 2
+NINNER_LOOP1: 2
+NINNER_LOOP2: 4
+layout_x: 2
+layout_y: 2
+npx_ges: 49
+npy_ges: 49
+npz_ges: 127
+npx_anl: 49
+npy_anl: 49
+npz_anl: 127
+background_path: ./data/bkg
+background_ensemble_path: ./data/ens/mem%mem%
+background_time_iso: "2026-03-05T00:00:00Z"
+obs_path: ./data/obs
+obs_diag_path: ./data/diags
+obsbiasin_path: ./data/obs
+obsbiasout_path: ./data/bc
+crtm_path: ./data/crtm
+bound_to_include: begin
+minimizer: DRPCG
+NMEM_ENS: 20
+IAUFHRS: 6
+observations: all_observations
+bias_file: rad_varbc_params.tar
+local_ensemble_da_solver: Deterministic GETKF
+vl_fraction_of_retained_variance: 0.75
+vl_lengthscale: 2.1
+inflation_rtps: 0.85
+inflation_rtpp: 0.0
+inflation_mult: 1.0
+
+# Values consumed by simple_example.yaml.j2
+experiment_name: jcb-minimal-case
+output_dir: ./output
+run_id: cycle-2026030500
+BKG_TSTEP: PT30M

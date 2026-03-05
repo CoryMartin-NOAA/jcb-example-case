@@ -1,0 +1,69 @@
+algorithm_path: /opt/parm/global/gdas/jcb-algorithms
+app_path_algorithm: /opt/parm/global/gdas/jcb-gdas/algorithm/atmosphere
+app_path_model: /opt/parm/global/gdas/jcb-gdas/model/atmosphere
+app_path_observations: /opt/parm/global/gdas/jcb-gdas/observations/atmosphere
+final_increment_file: atmosphere_final_increment_cubed_sphere
+output_ensemble_increments_file: atmosphere_output_ensemble_increments_cubed_sphere
+posterior_output_file: atmosphere_posterior_output_cubed_sphere
+model_file: atmosphere_model_pseudo
+initial_condition_file: atmosphere_background
+window_begin: '2026-03-05T00:00:00Z'
+window_length: PT6H
+bound_to_include: begin
+minimizer: DRPCG
+number_of_outer_loops: 2
+atmosphere_ninner_1: 2
+atmosphere_ninner_2: 4
+analysis_variables:
+- eastward_wind
+- northward_wind
+- air_temperature
+- air_pressure_at_surface
+- water_vapor_mixing_ratio_wrt_moist_air
+increment_variables:
+- eastward_wind
+- northward_wind
+- layer_thickness
+- air_pressure_thickness
+- air_temperature
+- air_pressure_at_surface
+- water_vapor_mixing_ratio_wrt_moist_air
+atmosphere_layout_x: 2
+atmosphere_layout_y: 2
+atmosphere_npx_ges: 49
+atmosphere_npy_ges: 49
+atmosphere_npz_ges: 127
+atmosphere_npx_anl: 49
+atmosphere_npy_anl: 49
+atmosphere_npz_anl: 127
+atmosphere_fv3jedi_files_path: ./fv3jedi
+atmosphere_background_path: ./data/bkg
+atmosphere_background_ensemble_path: ./data/ens/mem%mem%
+atmosphere_background_time_iso: '2026-03-05T00:00:00Z'
+atmosphere_number_ensemble_members: 20
+atmosphere_forecast_timestep: PT30M
+atmosphere_iau_hours: 6
+observations: all_observations
+crtm_coefficient_path: ./data/crtm
+atmosphere_obsdatain_path: ./data/obs
+atmosphere_obsdataout_path: ./data/diags
+atmosphere_obsbiasin_path: ./data/obs
+atmosphere_obsbiasout_path: ./data/bc
+bias_files_dict:
+  radiance_amsua_n19: rad_varbc_params.tar
+  radiance_cris-fsr_n20: rad_varbc_params.tar
+local_ensemble_da_solver: Deterministic GETKF
+vl_fraction_of_retained_variance: 0.75
+vl_lengthscale: 2.1
+inflation_rtps: 0.85
+inflation_rtpp: 0.0
+inflation_mult: 1.0
+driver_update_obs_config_with_geometry_info: true
+driver_save_posterior_mean: true
+driver_save_posterior_ensemble: false
+driver_save_prior_mean: false
+driver_save_posterior_ensemble_increments: true
+experiment:
+  name: jcb-minimal-case
+  output_dir: ./output
+  run_id: cycle-2026030500

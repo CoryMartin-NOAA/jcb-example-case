@@ -1,0 +1,77 @@
+# Expanded base template inspired by GDASApp's jcb-base.yaml.j2
+algorithm_path: "{{ PARMglobal }}/gdas/jcb-algorithms"
+app_path_algorithm: "{{ PARMglobal }}/gdas/jcb-gdas/algorithm/atmosphere"
+app_path_model: "{{ PARMglobal }}/gdas/jcb-gdas/model/atmosphere"
+app_path_observations: "{{ PARMglobal }}/gdas/jcb-gdas/observations/atmosphere"
+
+final_increment_file: "{{ final_increment_file | default('atmosphere_final_increment_cubed_sphere', true) }}"
+output_ensemble_increments_file: "{{ output_ensemble_increments_file | default('atmosphere_output_ensemble_increments_cubed_sphere', true) }}"
+posterior_output_file: "{{ posterior_output_file | default('atmosphere_posterior_output_cubed_sphere', true) }}"
+model_file: "{{ model_file | default('atmosphere_model_pseudo', true) }}"
+initial_condition_file: "{{ initial_condition_file | default('atmosphere_background', true) }}"
+
+window_begin: "{{ WINDOW_BEGIN }}"
+window_length: "{{ WINDOW_LENGTH }}"
+bound_to_include: "{{ bound_to_include | default('begin', true) }}"
+minimizer: "{{ minimizer | default('DRPCG', true) }}"
+number_of_outer_loops: {{ NUMBER_OUTER_LOOPS | default(2, true) }}
+atmosphere_ninner_1: {{ NINNER_LOOP1 | default(2, true) }}
+atmosphere_ninner_2: {{ NINNER_LOOP2 | default(4, true) }}
+
+analysis_variables:
+  - eastward_wind
+  - northward_wind
+  - air_temperature
+  - air_pressure_at_surface
+  - water_vapor_mixing_ratio_wrt_moist_air
+
+increment_variables:
+  - eastward_wind
+  - northward_wind
+  - layer_thickness
+  - air_pressure_thickness
+  - air_temperature
+  - air_pressure_at_surface
+  - water_vapor_mixing_ratio_wrt_moist_air
+
+atmosphere_layout_x: {{ layout_x | default(1, true) }}
+atmosphere_layout_y: {{ layout_y | default(1, true) }}
+atmosphere_npx_ges: {{ npx_ges | default(49, true) }}
+atmosphere_npy_ges: {{ npy_ges | default(49, true) }}
+atmosphere_npz_ges: {{ npz_ges | default(127, true) }}
+atmosphere_npx_anl: {{ npx_anl | default(49, true) }}
+atmosphere_npy_anl: {{ npy_anl | default(49, true) }}
+atmosphere_npz_anl: {{ npz_anl | default(127, true) }}
+
+atmosphere_fv3jedi_files_path: "{{ fv3jedi_path | default('./fv3jedi', true) }}"
+atmosphere_background_path: "{{ background_path | default('./bkg', true) }}"
+atmosphere_background_ensemble_path: "{{ background_ensemble_path | default('./ens/mem%mem%', true) }}"
+atmosphere_background_time_iso: "{{ background_time_iso | default('2026-03-05T00:00:00Z', true) }}"
+
+atmosphere_number_ensemble_members: {{ NMEM_ENS | default(10, true) }}
+atmosphere_forecast_timestep: "{{ BKG_TSTEP | default('PT30M', true) }}"
+atmosphere_iau_hours: {{ IAUFHRS | default(6, true) }}
+
+observations: "{{ observations | default('all_observations', true) }}"
+crtm_coefficient_path: "{{ crtm_path | default('./data/crtm', true) }}"
+atmosphere_obsdatain_path: "{{ obs_path | default('./obs', true) }}"
+atmosphere_obsdataout_path: "{{ obs_diag_path | default('./diags', true) }}"
+atmosphere_obsbiasin_path: "{{ obsbiasin_path | default('./obs', true) }}"
+atmosphere_obsbiasout_path: "{{ obsbiasout_path | default('./bc', true) }}"
+
+bias_files_dict:
+  radiance_amsua_n19: "{{ bias_file | default('rad_varbc_params.tar', true) }}"
+  radiance_cris-fsr_n20: "{{ bias_file | default('rad_varbc_params.tar', true) }}"
+
+local_ensemble_da_solver: "{{ local_ensemble_da_solver | default('Deterministic GETKF', true) }}"
+vl_fraction_of_retained_variance: {{ vl_fraction_of_retained_variance | default(0.75, true) }}
+vl_lengthscale: {{ vl_lengthscale | default(2.1, true) }}
+inflation_rtps: {{ inflation_rtps | default(0.85, true) }}
+inflation_rtpp: {{ inflation_rtpp | default(0.0, true) }}
+inflation_mult: {{ inflation_mult | default(1.0, true) }}
+
+driver_update_obs_config_with_geometry_info: true
+driver_save_posterior_mean: true
+driver_save_posterior_ensemble: false
+driver_save_prior_mean: false
+driver_save_posterior_ensemble_increments: true
